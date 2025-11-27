@@ -1,13 +1,13 @@
 <Solution>
-  <Folder Name="/.env/">
-    <File Path=".env/.env" />
-    <File Path=".env/.env.example" />
-  </Folder>
   <Folder Name="/.git/">
     <File Path=".gitattributes" />
     <File Path=".gitignore" />
   </Folder>
   <Folder Name="/doc/" />
+  <Folder Name="/env/">
+    <File Path="env/.env" />
+    <File Path="env/.env.example" />
+  </Folder>
   <Folder Name="/scripts/">
     <File Path="scripts/build.bat" />
   </Folder>
