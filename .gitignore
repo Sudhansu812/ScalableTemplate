@@ -364,6 +364,7 @@ FodyWeavers.xsd
 
 # Environment files
 ./env/.env
+.env
 
 # Project generated files - Debug and Build files
 ./src/**/bin/
