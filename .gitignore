@@ -361,3 +361,15 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Environment files
+./**/.env
+
+# Project generated files - Debug and Build files
+./src/**/bin/
+./src/**/obj/
+./tests/**/bin/
+./tests/**/obj/
+
+# Migration Files
+./src/**/Migrations/

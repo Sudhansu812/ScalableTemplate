@@ -1,16 +1,23 @@
 <Solution>
-  <Folder Name="/.env/" />
+  <Folder Name="/.env/">
+    <File Path=".env/.env" />
+    <File Path=".env/.env.example" />
+  </Folder>
+  <Folder Name="/.git/">
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+  </Folder>
   <Folder Name="/doc/" />
   <Folder Name="/scripts/">
-    <File Path="build.bat" />
+    <File Path="scripts/build.bat" />
   </Folder>
   <Folder Name="/src/">
-    <Project Path="ScalableApplication.API/ScalableApplication.API.csproj" Id="f3d307a3-23d7-4479-ab74-0b762d08d62b" />
-    <Project Path="ScalableApplication.Application/ScalableApplication.Application.csproj" Id="96611933-31cb-4ead-8ed2-3acc7f5a69ba" />
-    <Project Path="ScalableApplication.Domain/ScalableApplication.Domain.csproj" Id="4f2ba927-ac70-4aab-8e28-730703a01173" />
-    <Project Path="ScalableApplication.Infrastructure/ScalableApplication.Infrastructure.csproj" Id="717a8d2d-082b-42ed-b8b7-5d3928a5290e" />
+    <Project Path="src/ScalableApplication.API/ScalableApplication.API.csproj" />
+    <Project Path="src/ScalableApplication.Application/ScalableApplication.Application.csproj" />
+    <Project Path="src/ScalableApplication.Domain/ScalableApplication.Domain.csproj" />
+    <Project Path="src/ScalableApplication.Infrastructure/ScalableApplication.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="ScalableApplication.UnitTests/ScalableApplication.UnitTests.csproj" Id="42debf21-bf95-4d7f-b032-2a419f9f043e" />
+    <Project Path="tests/ScalableApplication.UnitTests/ScalableApplication.UnitTests.csproj" />
   </Folder>
 </Solution>

@@ -15,13 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ScalableApplication.API\ScalableApplication.API.csproj" />
-    <ProjectReference Include="..\ScalableApplication.Application\ScalableApplication.Application.csproj" />
-    <ProjectReference Include="..\ScalableApplication.Domain\ScalableApplication.Domain.csproj" />
-    <ProjectReference Include="..\ScalableApplication.Infrastructure\ScalableApplication.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 
