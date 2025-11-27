@@ -363,7 +363,7 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Environment files
-./env/.env
+/env/.env
 .env
 
 # Project generated files - Debug and Build files
@@ -374,4 +374,3 @@ FodyWeavers.xsd
 
 # Migration Files
 ./src/**/Migrations/
-/env/.env
