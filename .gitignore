@@ -367,10 +367,10 @@ FodyWeavers.xsd
 .env
 
 # Project generated files - Debug and Build files
-./src/**/bin/
-./src/**/obj/
-./tests/**/bin/
-./tests/**/obj/
+src/**/bin/
+src/**/obj/
+tests/**/bin/
+tests/**/obj/
 
 # Migration Files
-./src/**/Migrations/
+src/**/Migrations/

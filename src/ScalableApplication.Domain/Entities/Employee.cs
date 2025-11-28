@@ -16,7 +16,7 @@ namespace ScalableApplication.Domain.Entities
         public string Email { get; set; } = string.Empty;
         [Required, MinLength(1), MaxLength(64)]
         public string UserName { get; set; } = string.Empty;
-        [Required, ForeignKey("fk_emoployee_department")]
+        [ForeignKey("fk_emoployee_department")]
         public Guid? DepartmentId { get; set; }
         public Department? Department { get; set; }
     }

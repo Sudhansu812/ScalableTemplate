@@ -13,8 +13,7 @@ namespace ScalableApplication.Domain.Configurations
             builder.HasIndex(e => new { e.FirstName, e.LastName });
             builder.HasOne(e => e.Department)
                    .WithMany(d => d.Employees)
-                   .HasForeignKey(e => e.DepartmentId)
-                   .OnDelete(DeleteBehavior.SetNull);
+                   .HasForeignKey(e => e.DepartmentId);
         }
     }
 }

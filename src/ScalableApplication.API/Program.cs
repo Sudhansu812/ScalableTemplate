@@ -1,3 +1,4 @@
+using dotenv.net;
 using ScalableApplication.API.Middleware;
 using ScalableApplication.Application.Extensions;
 using ScalableApplication.Infrastructure.Extensions;
@@ -10,6 +11,7 @@ namespace ScalableApplication.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            DotEnv.Load();
             builder.Services.AddApplicationServices();
             builder.Services.AddInfrastructureServices(builder.Configuration);
             builder.Services.AddApiVersioning();

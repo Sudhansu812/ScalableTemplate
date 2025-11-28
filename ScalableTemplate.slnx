@@ -9,7 +9,9 @@
     <File Path="env/.env.example" />
   </Folder>
   <Folder Name="/scripts/">
+    <File Path="scripts/add-migration.bat" />
     <File Path="scripts/build.bat" />
+    <File Path="scripts/update-database.bat" />
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/ScalableApplication.API/ScalableApplication.API.csproj" />
