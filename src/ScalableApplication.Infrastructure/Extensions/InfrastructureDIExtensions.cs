@@ -13,8 +13,10 @@ namespace ScalableApplication.Infrastructure.Extensions
         {
             string connectionString = configuration.GetConnectionString("appDb") ?? throw new InvalidOperationException("Connection string not found.");
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+            
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IDepartmentRepository, DepartmentRepository>();
+
             return services;
         }
     }

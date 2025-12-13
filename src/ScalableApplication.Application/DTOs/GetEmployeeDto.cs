@@ -7,5 +7,19 @@
         public string? LastName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public GetDepartmentDto? Department { get; set; }
+
+        public GetEmployeeDto()
+        {
+
+        }
+
+        public GetEmployeeDto(Guid id, string firstName, string? lastName, string email, GetDepartmentDto? department)
+        {
+            Id = id;
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+            Department = department;
+        }
     }
 }

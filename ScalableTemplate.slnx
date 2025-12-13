@@ -1,4 +1,10 @@
 <Solution>
+  <Configurations>
+    <BuildType Name="Debug" />
+    <BuildType Name="Development" />
+    <BuildType Name="Release" />
+    <BuildType Name="Staging" />
+  </Configurations>
   <Folder Name="/.git/">
     <File Path=".gitattributes" />
     <File Path=".gitignore" />
@@ -20,6 +26,8 @@
     <Project Path="src/ScalableApplication.Infrastructure/ScalableApplication.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="tests/ScalableApplication.UnitTests/ScalableApplication.UnitTests.csproj" />
+    <Project Path="tests/ScalableApplication.UnitTests/ScalableApplication.UnitTests.csproj">
+      <BuildType Solution="Staging|*" Project="Development" />
+    </Project>
   </Folder>
 </Solution>

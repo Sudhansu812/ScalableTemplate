@@ -1,4 +1,5 @@
 ﻿using ScalableApplication.Application.DTOs;
+using ScalableApplication.Application.Exceptions;
 using System.Net;
 
 namespace ScalableApplication.API.Middleware
@@ -13,6 +14,10 @@ namespace ScalableApplication.API.Middleware
             try
             {
                 await _next(context);
+            }
+            catch(ResourceNotFoundException ef)
+            {
+                await HandleExceptionAsync(context, ef, HttpStatusCode.NotFound);
             }
             catch(ArgumentException argEx)
             {
@@ -33,7 +38,7 @@ namespace ScalableApplication.API.Middleware
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int) statusCode;
 
-            CustomHttpResponse<string> response = new CustomHttpResponse<string>(statusCode, null, exception.Message);
+            CustomHttpResponse<string> response = new(statusCode, null, exception.Message);
 
             return context.Response.WriteAsJsonAsync(response);
         }

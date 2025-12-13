@@ -6,9 +6,8 @@ using ScalableApplication.Infrastructure.Persistence;
 
 namespace ScalableApplication.Infrastructure.Repositories
 {
-    public class EmployeeRepository(AppDbContext db) : IEmployeeRepository
+    public class EmployeeRepository(AppDbContext db) : BaseRepository<Employee>(db), IEmployeeRepository
     {
-        private readonly AppDbContext _db = db;
         public async Task<List<Employee>> GetAllEmployees()
         {
             return await _db.Employees.Include(e => e.Department).ToListAsync();
@@ -19,9 +18,9 @@ namespace ScalableApplication.Infrastructure.Repositories
             return await _db.Employees.Include(e => e.Department).FirstOrDefaultAsync(e => e.Id.Equals(id));
         }
 
-        public Task<Employee?> GetEmployee(string? userName)
+        public async Task<Employee?> GetEmployee(string? userName)
         {
-            return _db.Employees.Include(e => e.Department).FirstOrDefaultAsync(e => e.UserName.Equals(userName));
+            return await _db.Employees.Include(e => e.Department).FirstOrDefaultAsync(e => e.UserName.Equals(userName));
         }
     }
 }

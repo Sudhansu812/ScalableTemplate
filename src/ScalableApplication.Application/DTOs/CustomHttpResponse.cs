@@ -3,11 +3,20 @@ using System.Text.Json.Serialization;
 
 namespace ScalableApplication.Application.DTOs
 {
-    public class CustomHttpResponse<T>(HttpStatusCode statusCode, T? data, string? error)
+    public class CustomHttpResponse<T>
     {
         [JsonIgnore]
-        public HttpStatusCode StatusCode { get; set; } = statusCode;
-        public T? Data { get; set; } = data;
-        public string? Error { get; set; } = error;
+        public HttpStatusCode StatusCode { get; set; }
+        public T? Data { get; set; }
+        public string? Error { get; set; }
+
+        public CustomHttpResponse() { }
+
+        public CustomHttpResponse(HttpStatusCode statusCode, T? data, string? error)
+        {
+            StatusCode = statusCode;
+            Data = data;
+            Error = error;
+        }
     }
 }

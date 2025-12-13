@@ -15,7 +15,7 @@ namespace ScalableApplication.API
             builder.Services.AddApplicationServices();
             builder.Services.AddInfrastructureServices(builder.Configuration);
             builder.Services.AddApiVersioning();
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddNewtonsoftJson();
             builder.Services.AddOpenApi();
 
             var app = builder.Build();
