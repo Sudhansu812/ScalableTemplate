@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json.Serialization;
 
-namespace ScalableApplication.Application.DTOs
+namespace ScalableApplication.Application.DTOs.Employee
 {
     public class CustomHttpResponse<T>
     {
@@ -12,7 +12,7 @@ namespace ScalableApplication.Application.DTOs
 
         public CustomHttpResponse() { }
 
-        public CustomHttpResponse(HttpStatusCode statusCode, T? data, string? error)
+        public CustomHttpResponse(HttpStatusCode statusCode, T? data, string? error = null)
         {
             StatusCode = statusCode;
             Data = data;

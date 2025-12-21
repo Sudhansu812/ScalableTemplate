@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.JsonPatch;
-using ScalableApplication.Application.DTOs;
+using ScalableApplication.Application.DTOs.Employee;
 using ScalableApplication.Application.Exceptions;
 using ScalableApplication.Application.Interfaces.Repositories;
 using ScalableApplication.Application.Interfaces.Services;
@@ -157,6 +157,20 @@ namespace ScalableApplication.Application.Features
             await _employeeRepository.SaveChangesAsync();
 
             return new CustomHttpResponse<string>(statusCode: HttpStatusCode.NoContent, data: "Deleted.", error: null);
+        }
+
+        public async Task<CustomHttpResponse<string>> AssignDepartment(Guid empId, Guid? depId)
+        {
+            Employee? employee = await _employeeRepository.GetByIdAsync(empId);
+            if (employee is null)
+            {
+                throw new ResourceNotFoundException(nameof(employee));
+            }
+
+            employee.DepartmentId = depId;
+            await _employeeRepository.SaveChangesAsync();
+
+            return new CustomHttpResponse<string>(HttpStatusCode.NoContent, "Updated.", null);
         }
     }
 }

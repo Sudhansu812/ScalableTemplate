@@ -1,4 +1,4 @@
-﻿using ScalableApplication.Application.DTOs;
+﻿using ScalableApplication.Application.DTOs.Employee;
 using ScalableApplication.Application.Exceptions;
 using System.Net;
 

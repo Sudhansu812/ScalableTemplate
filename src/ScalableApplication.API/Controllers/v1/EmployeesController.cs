@@ -1,10 +1,10 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using ScalableApplication.Application.DTOs;
+using ScalableApplication.Application.DTOs.Employee;
 using ScalableApplication.Application.Interfaces.Services;
 
-namespace ScalableApplication.API.Controllers
+namespace ScalableApplication.API.Controllers.v1
 {
     [ApiVersion(1)]
     [Route("api/[controller]")]
@@ -45,6 +45,13 @@ namespace ScalableApplication.API.Controllers
         public async Task<IActionResult> PatchEmployeeDetails([FromRoute] Guid empid, [FromBody] JsonPatchDocument<PatchEmployeeDto> patchDocument)
         {
             CustomHttpResponse<string> response = await _employee.PatchEmployeeDetails(empid, patchDocument);
+            return StatusCode((int)response.StatusCode);
+        }
+
+        [HttpPut("{id}/assign-department/{depId}")]
+        public async Task<IActionResult> AssignDepartment([FromRoute] Guid id, [FromRoute] Guid? depId)
+        {
+            CustomHttpResponse<string> response = await _employee.AssignDepartment(id, depId);
             return StatusCode((int)response.StatusCode);
         }
 

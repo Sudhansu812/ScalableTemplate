@@ -1,4 +1,4 @@
-﻿namespace ScalableApplication.Application.DTOs
+﻿namespace ScalableApplication.Application.DTOs.Employee
 {
     public class PatchEmployeeDto
     {

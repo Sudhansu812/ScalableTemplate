@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ScalableApplication.Application.DTOs;
 using ScalableApplication.Application.Interfaces.Repositories;
 using ScalableApplication.Domain.Entities;
 using ScalableApplication.Infrastructure.Persistence;
