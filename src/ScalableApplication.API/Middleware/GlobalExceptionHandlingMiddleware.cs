@@ -1,6 +1,7 @@
 ﻿using ScalableApplication.Application.DTOs.Employee;
 using ScalableApplication.Application.Exceptions;
 using System.Net;
+using System.Security.Cryptography;
 
 namespace ScalableApplication.API.Middleware
 {
@@ -15,9 +16,21 @@ namespace ScalableApplication.API.Middleware
             {
                 await _next(context);
             }
-            catch(ResourceNotFoundException ef)
+            catch (EnvironmentVariableNotFoundException ev)
+            {
+                await HandleExceptionAsync(context, ev, HttpStatusCode.InternalServerError);
+            }
+            catch (CryptographicException ce)
+            {
+                await HandleExceptionAsync(context, ce, HttpStatusCode.InternalServerError);
+            }
+            catch (ResourceNotFoundException ef)
             {
                 await HandleExceptionAsync(context, ef, HttpStatusCode.NotFound);
+            }
+            catch(DuplicateResourceException dr)
+            {
+                await HandleExceptionAsync(context, dr, HttpStatusCode.BadRequest);
             }
             catch(ArgumentException argEx)
             {

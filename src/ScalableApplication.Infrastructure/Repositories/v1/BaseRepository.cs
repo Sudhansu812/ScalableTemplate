@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ScalableApplication.Application.Interfaces.Repositories;
+using ScalableApplication.Application.Interfaces.v1.Repositories;
 using ScalableApplication.Infrastructure.Persistence;
 
-namespace ScalableApplication.Infrastructure.Repositories
+namespace ScalableApplication.Infrastructure.Repositories.v1
 {
     public class BaseRepository<T>(AppDbContext db) : IRepository<T> where T : class
     {

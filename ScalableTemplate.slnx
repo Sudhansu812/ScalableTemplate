@@ -17,6 +17,7 @@
   <Folder Name="/scripts/">
     <File Path="scripts/add-migration.bat" />
     <File Path="scripts/build.bat" />
+    <File Path="scripts/set_environment_variables.bat" />
     <File Path="scripts/update-database.bat" />
   </Folder>
   <Folder Name="/src/">

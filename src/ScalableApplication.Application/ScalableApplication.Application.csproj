@@ -17,4 +17,8 @@
     <ProjectReference Include="..\ScalableApplication.Domain\ScalableApplication.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces\Helpers\" />
+  </ItemGroup>
+
 </Project>

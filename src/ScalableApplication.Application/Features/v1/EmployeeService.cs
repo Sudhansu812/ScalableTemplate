@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.JsonPatch;
 using ScalableApplication.Application.DTOs.Employee;
 using ScalableApplication.Application.Exceptions;
-using ScalableApplication.Application.Interfaces.Repositories;
-using ScalableApplication.Application.Interfaces.Services;
+using ScalableApplication.Application.Interfaces.v1.Repositories;
+using ScalableApplication.Application.Interfaces.v1.Services;
 using ScalableApplication.Domain.Entities;
 using System.Net;
 
-namespace ScalableApplication.Application.Features
+namespace ScalableApplication.Application.Features.v1
 {
     public class EmployeeService(IEmployeeRepository employeeRepository) : IEmployeeService
     {
@@ -22,6 +22,18 @@ namespace ScalableApplication.Application.Features
             })];
 
             return new CustomHttpResponse<List<AllEmployeesDto>>(HttpStatusCode.OK, employees, null);
+        }
+
+        public async Task<CustomHttpResponse<List<EmployeeWithDepartmentIdDto>>> GetAllEmployeesWithDepartmentId()
+        {
+            List <EmployeeWithDepartmentIdDto> employees = [.. (await _employeeRepository.GetAllEmployees()).Select(e => new EmployeeWithDepartmentIdDto {
+                Id = e.Id,
+                FirstName = e.FirstName,
+                LastName = e.LastName!,
+                DepartmentId = e.Department is null ? null : e.Department.Id
+            })];
+
+            return new CustomHttpResponse<List<EmployeeWithDepartmentIdDto>>(HttpStatusCode.OK, employees, null);
         }
 
         public async Task<CustomHttpResponse<GetEmployeeDto?>> GetEmployee(Guid? id, string? userName)
@@ -72,6 +84,11 @@ namespace ScalableApplication.Application.Features
                 Email = emp.Email,
                 UserName = emp.UserName
             };
+
+            if (await _employeeRepository.UserNameExists(emp.UserName) || await _employeeRepository.EmailExists(emp.Email))
+            {
+                throw new DuplicateResourceException($"{nameof(employee.UserName)} / {nameof(employee.Email)}");
+            }
 
             employee = await _employeeRepository.AddAsync(employee);
 

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using ScalableApplication.Application.DTOs.Employee;
-using ScalableApplication.Application.Interfaces.Services;
+using ScalableApplication.Application.Interfaces.v1.Services;
 
 namespace ScalableApplication.API.Controllers.v1
 {
@@ -18,6 +18,13 @@ namespace ScalableApplication.API.Controllers.v1
         {
             CustomHttpResponse<List<AllEmployeesDto>> response = await _employee.GetAllEmployees();
             return StatusCode((int)response.StatusCode, response.Data);
+        }
+
+        [HttpGet("list")]
+        public async Task<IActionResult> GetAllEmployeesWithDepartmentId()
+        {
+            CustomHttpResponse<List<EmployeeWithDepartmentIdDto>> response = await _employee.GetAllEmployeesWithDepartmentId();
+            return StatusCode((int)response.StatusCode,response.Data);
         }
 
         [HttpGet("GetEmployeeByUserName")]

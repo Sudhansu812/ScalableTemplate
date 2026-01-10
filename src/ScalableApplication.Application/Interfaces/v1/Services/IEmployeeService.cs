@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.JsonPatch;
 using ScalableApplication.Application.DTOs.Employee;
 
-namespace ScalableApplication.Application.Interfaces.Services
+namespace ScalableApplication.Application.Interfaces.v1.Services
 {
     public interface IEmployeeService
     {
@@ -12,5 +12,6 @@ namespace ScalableApplication.Application.Interfaces.Services
         Task<CustomHttpResponse<string>> RemoveEmployee(Guid empId);
         Task<CustomHttpResponse<string>> PatchEmployeeDetails(Guid empId, JsonPatchDocument<PatchEmployeeDto> patchDocument);
         Task<CustomHttpResponse<string>> AssignDepartment(Guid empId, Guid? depId);
+        Task<CustomHttpResponse<List<EmployeeWithDepartmentIdDto>>> GetAllEmployeesWithDepartmentId();
     }
 }

@@ -1,9 +1,8 @@
 ﻿using Asp.Versioning;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ScalableApplication.Application.DTOs.Department;
 using ScalableApplication.Application.DTOs.Employee;
-using ScalableApplication.Application.Interfaces.Services;
+using ScalableApplication.Application.Interfaces.v1.Services;
 
 namespace ScalableApplication.API.Controllers.v1
 {
@@ -13,6 +12,13 @@ namespace ScalableApplication.API.Controllers.v1
     public class DepartmentsController(IDepartmentService departmentService) : ControllerBase
     {
         private readonly IDepartmentService _departmentService = departmentService;
+
+        [HttpGet]
+        public async Task<IActionResult> GetActiveDepartments()
+        {
+            CustomHttpResponse<List<ActiveDepartmentDto>> response = await _departmentService.GetActiveDepartments();
+            return StatusCode((int)response.StatusCode, response.Data);
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDepartment([FromRoute] Guid id)

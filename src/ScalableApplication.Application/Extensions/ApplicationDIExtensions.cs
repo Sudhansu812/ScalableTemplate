@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using ScalableApplication.Application.Features;
-using ScalableApplication.Application.Interfaces.Services;
+using ScalableApplication.Application.Features.v1;
+using ScalableApplication.Application.Interfaces.v1.Services;
 
 namespace ScalableApplication.Application.Extensions
 {
@@ -10,6 +10,7 @@ namespace ScalableApplication.Application.Extensions
         {
             services.AddTransient<IEmployeeService, EmployeeService>();
             services.AddTransient<IDepartmentService, DepartmentService>();
+
             return services;
         }
     }

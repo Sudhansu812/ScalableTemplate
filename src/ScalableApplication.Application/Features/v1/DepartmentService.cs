@@ -3,16 +3,25 @@ using Microsoft.AspNetCore.JsonPatch;
 using ScalableApplication.Application.DTOs.Department;
 using ScalableApplication.Application.DTOs.Employee;
 using ScalableApplication.Application.Exceptions;
-using ScalableApplication.Application.Interfaces.Repositories;
-using ScalableApplication.Application.Interfaces.Services;
+using ScalableApplication.Application.Interfaces.v1.Repositories;
+using ScalableApplication.Application.Interfaces.v1.Services;
 using ScalableApplication.Domain.Entities;
 using System.Net;
 
-namespace ScalableApplication.Application.Features
+namespace ScalableApplication.Application.Features.v1
 {
     public class DepartmentService(IDepartmentRepository repository) : IDepartmentService
     {
         private readonly IDepartmentRepository _repository = repository;
+
+        public async Task<CustomHttpResponse<List<ActiveDepartmentDto>>> GetActiveDepartments()
+        {
+            return new CustomHttpResponse<List<ActiveDepartmentDto>>(HttpStatusCode.OK, [.. (await _repository.GetActiveDepartments()).Select(d => new ActiveDepartmentDto
+            {
+                Id = d.Id,
+                Name = d.Name
+            })], null);
+        }
 
         public async Task<CustomHttpResponse<DepartmentDto>> CreateDepartment(DepartmentDto? departmentDto)
         {

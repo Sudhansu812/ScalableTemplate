@@ -1,4 +1,4 @@
-﻿namespace ScalableApplication.Application.Interfaces.Repositories
+﻿namespace ScalableApplication.Application.Interfaces.v1.Repositories
 {
     public interface IRepository<T> where T : class
     {

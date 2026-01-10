@@ -11,14 +11,26 @@ namespace ScalableApplication.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            DotEnv.Load();
+            DotEnv.Load(options: DotEnv.Fluent().WithEnvFiles("../../env/.env"));
             builder.Services.AddApplicationServices();
             builder.Services.AddInfrastructureServices(builder.Configuration);
             builder.Services.AddApiVersioning();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend",
+                    policy =>
+                    {
+                        policy
+                        .WithOrigins("http://localhost:5173")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                    });
+            });
             builder.Services.AddControllers().AddNewtonsoftJson();
             builder.Services.AddOpenApi();
 
             var app = builder.Build();
+            app.UseCors("AllowFrontend");
             app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
             if (app.Environment.IsDevelopment())
             {
