@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.JsonPatch;
+using ScalableApplication.Application.DTOs.Common;
 using ScalableApplication.Application.DTOs.Department;
 using ScalableApplication.Application.DTOs.Employee;
 

@@ -1,4 +1,8 @@
 ﻿using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using ScalableApplication.Application.DTOs.Common;
+using ScalableApplication.Application.DTOs.Department;
 using ScalableApplication.Application.DTOs.Employee;
 using ScalableApplication.Application.Exceptions;
 using ScalableApplication.Application.Interfaces.v1.Repositories;
@@ -18,7 +22,9 @@ namespace ScalableApplication.Application.Features.v1
                 Id = e.Id,
                 FirstName = e.FirstName,
                 LastName = e.LastName!,
-                DepartmentName = e.Department is null ? null : e.Department.Name
+                DepartmentName = e.Department is null ? null : e.Department.Name,
+                CreatedTime = e.CreatedTime,
+                DisabledTime = e.DisabledTime
             })];
 
             return new CustomHttpResponse<List<AllEmployeesDto>>(HttpStatusCode.OK, employees, null);
@@ -67,9 +73,12 @@ namespace ScalableApplication.Application.Features.v1
                     Id = employee.Department.Id,
                     Name = employee.Department.Name,
                     Description = employee.Department.Description,
-                    IsActive = employee.Department.IsActive
+                    IsActive = employee.Department.IsActive,
+                    CreatedTime = employee.Department.CreatedTime,
                 } : null,
-                Email = employee.Email
+                Email = employee.Email,
+                CreatedTime = employee.CreatedTime,
+                DisabledTime = employee.DisabledTime
             };
 
             return new CustomHttpResponse<GetEmployeeDto?>(HttpStatusCode.OK, emp, null);
@@ -82,7 +91,9 @@ namespace ScalableApplication.Application.Features.v1
                 FirstName = emp.FirstName,
                 LastName = emp.LastName,
                 Email = emp.Email,
-                UserName = emp.UserName
+                UserName = emp.UserName,
+                CreatedTime = DateTime.UtcNow,
+                DisabledTime = null
             };
 
             if (await _employeeRepository.UserNameExists(emp.UserName) || await _employeeRepository.EmailExists(emp.Email))
@@ -99,7 +110,9 @@ namespace ScalableApplication.Application.Features.v1
                     FirstName = employee.FirstName,
                     LastName = employee.LastName,
                     Email = employee.Email,
-                    Department = null
+                    Department = null,
+                    CreatedTime = employee.CreatedTime,
+                    DisabledTime = employee.DisabledTime
                 }, null);
 
             throw new SaveChangeFailedException(nameof(employee));
@@ -122,6 +135,8 @@ namespace ScalableApplication.Application.Features.v1
             employee.LastName = emp.LastName;
             employee.Email = emp.Email;
             employee.DepartmentId = emp.DepartmentId;
+            employee.CreatedTime = emp.CreatedTime;
+            employee.DisabledTime = emp.DisabledTime;
 
             await _employeeRepository.SaveChangesAsync();
 
@@ -147,7 +162,9 @@ namespace ScalableApplication.Application.Features.v1
                 LastName = employee.LastName,
                 Email = employee.Email,
                 UserName = employee.UserName,
-                DepartmentId = employee.DepartmentId
+                DepartmentId = employee.DepartmentId,
+                CreatedTime = employee.CreatedTime,
+                DisabledTime = employee.DisabledTime
             };
 
             patchDocument.ApplyTo(empDto);
@@ -157,6 +174,8 @@ namespace ScalableApplication.Application.Features.v1
             employee.Email = empDto.Email;
             employee.UserName = empDto.UserName;
             employee.DepartmentId = empDto.DepartmentId;
+            employee.CreatedTime = empDto.CreatedTime;
+            employee.DisabledTime = empDto.DisabledTime;
 
             await _employeeRepository.SaveChangesAsync();
 
@@ -176,18 +195,47 @@ namespace ScalableApplication.Application.Features.v1
             return new CustomHttpResponse<string>(statusCode: HttpStatusCode.NoContent, data: "Deleted.", error: null);
         }
 
-        public async Task<CustomHttpResponse<string>> AssignDepartment(Guid empId, Guid? depId)
+        public async Task<CustomHttpResponse<string>> AssignDepartment(AssignDepartmentDto employeeDepartment)
         {
-            Employee? employee = await _employeeRepository.GetByIdAsync(empId);
+            if (employeeDepartment is null)
+            {
+                throw new ArgumentNullException(nameof(employeeDepartment));
+            }
+            Employee? employee = await _employeeRepository.GetByIdAsync(employeeDepartment.EmployeeId);
             if (employee is null)
             {
                 throw new ResourceNotFoundException(nameof(employee));
             }
 
-            employee.DepartmentId = depId;
+            employee.DepartmentId = employeeDepartment.DepartmentId;
             await _employeeRepository.SaveChangesAsync();
 
             return new CustomHttpResponse<string>(HttpStatusCode.NoContent, "Updated.", null);
+        }
+
+        public async Task<CustomHttpResponse<PagedResponse<ReadEmployeeDto>>> GetEmployees(int? page = 0, int? pageSize = 100)
+        {
+            if (page is null || pageSize is null || page < 0 || pageSize <= 0)
+            {
+                throw new InvalidPaginationException();
+            }
+            List<ReadEmployeeDto> employees = await _employeeRepository.GetEmployees((int)page, (int)pageSize);
+
+            PagedResponse<ReadEmployeeDto> pagedEmployees = new PagedResponse<ReadEmployeeDto>(employees, (int)page, (int)pageSize, await _employeeRepository.GetEmployeesCount());
+            return new CustomHttpResponse<PagedResponse<ReadEmployeeDto>>(HttpStatusCode.OK, pagedEmployees, null);
+        }
+
+        public async Task<CustomHttpResponse<PagedResponse<ReadEmployeeDto>>> GetEmployees(GetFilteredEmployeeDto filter)
+        {
+            if (filter.Page is null || filter.PageSize is null || filter.Page < 0 || filter.PageSize <= 0)
+            {
+                throw new InvalidPaginationException();
+            }
+
+            (int count, List<ReadEmployeeDto> employees) = await _employeeRepository.GetEmployees(filter);
+            PagedResponse<ReadEmployeeDto> response = new PagedResponse<ReadEmployeeDto>(employees, (int)filter.Page, (int)filter.PageSize, count);
+
+            return new CustomHttpResponse<PagedResponse<ReadEmployeeDto>>(HttpStatusCode.OK, response, null);
         }
     }
 }

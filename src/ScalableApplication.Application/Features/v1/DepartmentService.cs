@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
+using ScalableApplication.Application.DTOs.Common;
 using ScalableApplication.Application.DTOs.Department;
 using ScalableApplication.Application.DTOs.Employee;
 using ScalableApplication.Application.Exceptions;
@@ -34,10 +35,12 @@ namespace ScalableApplication.Application.Features.v1
             {
                 Name = departmentDto.Name,
                 Description = departmentDto.Description,
-                IsActive = departmentDto.IsActive
+                IsActive = departmentDto.IsActive,
+                CreatedTime = DateTime.UtcNow
             };
 
             department = await _repository.AddAsync(department);
+            departmentDto.CreatedTime = department.CreatedTime;
 
             if (await _repository.SaveChangesAsync())
             {
@@ -54,7 +57,8 @@ namespace ScalableApplication.Application.Features.v1
                 Id = id,
                 Name = department.Name,
                 Description = department.Description,
-                IsActive = department.IsActive
+                IsActive = department.IsActive,
+                CreatedTime = department.CreatedTime
             }
             , error: null);
         }
@@ -66,7 +70,8 @@ namespace ScalableApplication.Application.Features.v1
                 Id = d.Id,
                 Name = d.Name,
                 Description = d.Description,
-                IsActive = d.IsActive
+                IsActive = d.IsActive,
+                CreatedTime = d.CreatedTime
             }).ToList();
 
             return new CustomHttpResponse<List<GetDepartmentDto>>(HttpStatusCode.OK, departments, null);
@@ -100,6 +105,7 @@ namespace ScalableApplication.Application.Features.v1
             department.Name = departmentDto.Name;
             department.Description = departmentDto.Description;
             department.IsActive = departmentDto.IsActive;
+            department.CreatedTime = departmentDto.CreatedTime;
 
             await _repository.SaveChangesAsync();
 
@@ -120,7 +126,8 @@ namespace ScalableApplication.Application.Features.v1
 
             department.Name = deptDto.Name;
             department.Description = deptDto.Description;
-            department.IsActive = department.IsActive;
+            department.IsActive = deptDto.IsActive;
+            department.CreatedTime = deptDto.CreatedTime;
 
             await _repository.SaveChangesAsync();
 

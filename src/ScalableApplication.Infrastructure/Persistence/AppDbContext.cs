@@ -8,6 +8,9 @@ namespace ScalableApplication.Infrastructure.Persistence
     {
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Retailer> Retailers { get; set; }
+        public DbSet<Store> Stores { get; set; }
+        public DbSet<StoreCategory> StoreCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -15,6 +18,9 @@ namespace ScalableApplication.Infrastructure.Persistence
 
             modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
             modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
+            modelBuilder.ApplyConfiguration(new RetailerConfiguration());
+            modelBuilder.ApplyConfiguration(new StoreCategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new StoreConfiguration());
         }
     }
 }

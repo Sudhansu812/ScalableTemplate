@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json.Serialization;
 
-namespace ScalableApplication.Application.DTOs.Employee
+namespace ScalableApplication.Application.DTOs.Common
 {
     public class CustomHttpResponse<T>
     {

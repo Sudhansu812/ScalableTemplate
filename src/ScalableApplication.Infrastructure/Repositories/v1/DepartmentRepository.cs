@@ -9,7 +9,7 @@ namespace ScalableApplication.Infrastructure.Repositories.v1
     {
         public async Task<List<Department>> GetActiveDepartments()
         {
-            return await _db.Departments.Where(d => d.IsActive == true).ToListAsync();
+            return await _db.Departments.Where(d => d.IsActive == true).OrderBy(d => d.Name).ToListAsync();
         }
 
         public async Task<Department?> GetDepartmentEmployees(Guid id)

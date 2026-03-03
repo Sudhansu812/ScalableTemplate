@@ -1,8 +1,4 @@
-﻿using ScalableApplication.Domain.Entities;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace ScalableApplication.Application.DTOs.Employee
+﻿namespace ScalableApplication.Application.DTOs.Employee
 {
     public class CreateEmployeeDto
     {
@@ -10,5 +6,7 @@ namespace ScalableApplication.Application.DTOs.Employee
         public string? LastName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string UserName { get; set; } = string.Empty;
+        public DateTime CreatedTime { get; set; } = DateTime.UtcNow;
+        public DateTime? DisabledTime { get; set; } = null;
     }
 }

@@ -10,6 +10,7 @@ namespace ScalableApplication.Application.Extensions
         {
             services.AddTransient<IEmployeeService, EmployeeService>();
             services.AddTransient<IDepartmentService, DepartmentService>();
+            services.AddTransient<IStoreService, StoreService>();
 
             return services;
         }

@@ -20,6 +20,9 @@
     <File Path="scripts/set_environment_variables.bat" />
     <File Path="scripts/update-database.bat" />
   </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
   <Folder Name="/src/">
     <Project Path="src/ScalableApplication.API/ScalableApplication.API.csproj" />
     <Project Path="src/ScalableApplication.Application/ScalableApplication.Application.csproj" />

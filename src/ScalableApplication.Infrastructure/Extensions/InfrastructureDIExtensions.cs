@@ -20,6 +20,7 @@ namespace ScalableApplication.Infrastructure.Extensions
             
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IDepartmentRepository, DepartmentRepository>();
+            services.AddTransient<IStoreRepository, StoreRepository>();
 
             return services;
         }

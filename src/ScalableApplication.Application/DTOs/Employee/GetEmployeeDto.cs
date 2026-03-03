@@ -1,4 +1,6 @@
-﻿namespace ScalableApplication.Application.DTOs.Employee
+﻿using ScalableApplication.Application.DTOs.Department;
+
+namespace ScalableApplication.Application.DTOs.Employee
 {
     public class GetEmployeeDto
     {
@@ -6,6 +8,8 @@
         public string FirstName { get; set; } = string.Empty;
         public string? LastName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
+        public DateTime CreatedTime { get; set; }
+        public DateTime? DisabledTime { get; set; }
         public GetDepartmentDto? Department { get; set; }
 
         public GetEmployeeDto()

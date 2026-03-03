@@ -1,6 +1,7 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using ScalableApplication.Application.DTOs.Common;
 using ScalableApplication.Application.DTOs.Employee;
 using ScalableApplication.Application.Interfaces.v1.Services;
 
@@ -27,7 +28,7 @@ namespace ScalableApplication.API.Controllers.v1
             return StatusCode((int)response.StatusCode,response.Data);
         }
 
-        [HttpGet("GetEmployeeByUserName")]
+        [HttpGet("by-user-name")]
         public async Task<IActionResult> GetEmployee([FromQuery] Guid? id, string? userName)
         {
             CustomHttpResponse<GetEmployeeDto?> response = await _employee.GetEmployee(id, userName);
@@ -55,10 +56,10 @@ namespace ScalableApplication.API.Controllers.v1
             return StatusCode((int)response.StatusCode);
         }
 
-        [HttpPut("{id}/assign-department/{depId}")]
-        public async Task<IActionResult> AssignDepartment([FromRoute] Guid id, [FromRoute] Guid? depId)
+        [HttpPut("assign-department")]
+        public async Task<IActionResult> AssignDepartment([FromBody] AssignDepartmentDto employeeDepartment)
         {
-            CustomHttpResponse<string> response = await _employee.AssignDepartment(id, depId);
+            CustomHttpResponse<string> response = await _employee.AssignDepartment(employeeDepartment);
             return StatusCode((int)response.StatusCode);
         }
 
@@ -67,6 +68,20 @@ namespace ScalableApplication.API.Controllers.v1
         {
             CustomHttpResponse<string> response = await _employee.RemoveEmployee(empid);
             return StatusCode((int)response.StatusCode);
+        }
+
+        [HttpGet("paginated-list")]
+        public async Task<IActionResult> GetEmployees(int? page = 0, int? pageSize = 100)
+        {
+            CustomHttpResponse<PagedResponse<ReadEmployeeDto>> response = await _employee.GetEmployees(page, pageSize);
+            return StatusCode((int)response.StatusCode, response.Data);
+        }
+
+        [HttpGet("filtered-list")]
+        public async Task<IActionResult> GetEmployees([FromQuery] GetFilteredEmployeeDto filter)
+        {
+            CustomHttpResponse<PagedResponse<ReadEmployeeDto>> response = await _employee.GetEmployees(filter);
+            return StatusCode((int)response.StatusCode, response.Data);
         }
     }
 }

@@ -4,7 +4,7 @@ namespace ScalableApplication.API.Extensions
 {
     public static class VersioningExtension
     {
-        public static IServiceCollection AddApiVersioning(this IServiceCollection services)
+        public static IServiceCollection AddScalableAppApiVersioning(this IServiceCollection services)
         {
             services.AddApiVersioning(options =>
             {

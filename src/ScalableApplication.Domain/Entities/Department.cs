@@ -14,5 +14,7 @@ namespace ScalableApplication.Domain.Entities
         [Required]
         public bool IsActive { get; set; } = true;
         public IEnumerable<Employee>? Employees { get; set; }
+        [Required]
+        public DateTime CreatedTime { get; set; }
     }
 }

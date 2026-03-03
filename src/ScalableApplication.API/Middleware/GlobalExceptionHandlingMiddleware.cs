@@ -1,4 +1,4 @@
-﻿using ScalableApplication.Application.DTOs.Employee;
+﻿using ScalableApplication.Application.DTOs.Common;
 using ScalableApplication.Application.Exceptions;
 using System.Net;
 using System.Security.Cryptography;

@@ -19,5 +19,8 @@ namespace ScalableApplication.Domain.Entities
         [ForeignKey("fk_emoployee_department")]
         public Guid? DepartmentId { get; set; }
         public Department? Department { get; set; }
+        [Required]
+        public DateTime CreatedTime { get; set; }
+        public DateTime? DisabledTime { get; set; }
     }
 }

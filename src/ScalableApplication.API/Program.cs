@@ -1,4 +1,5 @@
 using dotenv.net;
+using ScalableApplication.API.Extensions;
 using ScalableApplication.API.Middleware;
 using ScalableApplication.Application.Extensions;
 using ScalableApplication.Infrastructure.Extensions;
@@ -14,7 +15,7 @@ namespace ScalableApplication.API
             DotEnv.Load(options: DotEnv.Fluent().WithEnvFiles("../../env/.env"));
             builder.Services.AddApplicationServices();
             builder.Services.AddInfrastructureServices(builder.Configuration);
-            builder.Services.AddApiVersioning();
+            builder.Services.AddScalableAppApiVersioning();
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowFrontend",

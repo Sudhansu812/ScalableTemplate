@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
+using ScalableApplication.Application.DTOs.Common;
 using ScalableApplication.Application.DTOs.Department;
 using ScalableApplication.Application.DTOs.Employee;
 using ScalableApplication.Application.Interfaces.v1.Services;
@@ -37,14 +38,14 @@ namespace ScalableApplication.API.Controllers.v1
         [HttpPost]
         public async Task<IActionResult> CreateDepartment([FromBody] DepartmentDto department)
         {
-            var response = await _departmentService.CreateDepartment(department);
+            CustomHttpResponse<DepartmentDto> response = await _departmentService.CreateDepartment(department);
             return StatusCode((int)response.StatusCode, response.Data);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateDepartment([FromRoute] Guid id, [FromBody] DepartmentDto department)
         {
-            var response = await _departmentService.UpdateDepartment(id, department);
+            CustomHttpResponse<bool> response = await _departmentService.UpdateDepartment(id, department);
             return StatusCode((int)response.StatusCode);
         }
     }
