@@ -48,9 +48,9 @@ namespace ScalableApplication.Infrastructure.Repositories.v1
                 stores = stores.Where(s => s.str.Code == filter.StoreCode);
             }
 
-            if (filter.StoreCategoryid is not null)
+            if (filter.StoreCategoryId is not null)
             {
-                stores = stores.Where(s => s.str.StoreCategoryId == filter.StoreCategoryid);
+                stores = stores.Where(s => s.str.StoreCategoryId == filter.StoreCategoryId);
             }
 
             if (filter.IsActive is not null && filter.IsActive != false)

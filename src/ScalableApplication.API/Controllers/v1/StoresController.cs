@@ -39,5 +39,41 @@ namespace ScalableApplication.API.Controllers.v1
             CustomHttpResponse<PagedResponse<ReadStoreDto>> response = await _storeService.GetStoresByFilter(filter);
             return StatusCode((int)response.StatusCode, response.Data);
         }
+
+        //[HttpGet]
+        //public async Task<IActionResult> GetAllStores()
+        //{
+        //    return Ok();
+        //}
+
+        //[HttpGet("by-retailer")]
+        //public async Task<IActionResult> GetStores(int retailer)
+        //{
+        //    return Ok();
+        //}
+
+        //[HttpGet("retailers")]
+        //public async Task<IActionResult> GetRetailers()
+        //{
+        //    return Ok();
+        //}
+
+        //[HttpGet("categories")]
+        //public async Task<IActionResult> GetStoreCategories()
+        //{
+        //    return Ok();
+        //}
+
+        //[HttpPost("retailer")]
+        //public async Task<IActionResult> AddRetailer()
+        //{
+        //    return Ok();
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> AddStore()
+        //{
+        //    return Ok();
+        //}
     }
 }
